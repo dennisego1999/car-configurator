@@ -1,61 +1,25 @@
 <?php
 
-namespace App\Models;
+namespace {{ namespace }};
 
-use App\Enums\RoleEnum;
-use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class {{ class }} extends Model
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory;
 
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
 
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return $this->isSuperAdmin();
-    }
-
-    public function isSuperAdmin(): bool
-    {
-        return $this->hasRole(RoleEnum::SUPER_ADMIN);
-    }
-
-    public function isVisitor(): bool
-    {
-        return $this->hasRole(RoleEnum::VISITOR);
-    }
 
     /*
     |--------------------------------------------------------------------------
